@@ -56,7 +56,7 @@ bot_listas.command('salir', (ctx) => {
 
 function list(lista){
     let nuevaLista = ""
-    lista.map((u,i) => nuevaLista += `${++i} .${u} \n`)
+    lista.map((u,i) => nuevaLista += `${++i}. ${u} \n`)
     return nuevaLista
     //return lista.map((u,i) => ++i+". "+u+'\n')
 }
