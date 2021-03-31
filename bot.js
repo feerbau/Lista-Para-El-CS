@@ -19,11 +19,10 @@ function add_to_list(ctx,name, list){
     let feedback = ""
     if (list.length >= 5){
         printList(ctx)
-        feedback = ctx.reply('Ya esta llena la lista, dormiste.')
+        return ctx.reply('Ya esta llena la lista, dormiste.')
     }
     list.push(name)
-    feedback = ctx.reply('Adentro '+ctx.from.first_name)
-    return feedback
+    return ctx.reply('Adentro '+ctx.from.first_name)
 }
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
