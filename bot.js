@@ -8,18 +8,17 @@ function exists_group(id){
     if (!listas[id]){
         // If not exist an grup, create it empty.
         listas[id] = {}
-        listas["activos"] = []
-        listas["suplentes"] = []
+        listas[id]["activos"] = []
+        listas[id]["suplentes"] = []
     }
 }
 
 function add_to_list(ctx,name, list){
-    if (list.length >= 5){
+    if (list["activos"].length >= 5){
         printAll(ctx)
-        listas["suplentes"].push(name)
+        listas[ctx.chat.id]["suplentes"].push(name)
         return ctx.reply('Ya esta llena la lista, dormiste. Entras como suplente')
     }
-    //list.push(name)
     list["activos"].push(name)
     return ctx.reply('Adentro ' + ctx.from.first_name)
 }
@@ -40,6 +39,7 @@ function printList(ctx,typeOfPlayer){
 }
 
 function printAll(ctx){
+    exists_group(ctx.chat.id)
     if (listas[ctx.chat.id]["activos"].length == 0){
         return ctx.reply("No hay nadie")
     }
@@ -74,13 +74,13 @@ bot_listas.command('limpiar', (ctx) =>{
 
 bot_listas.command('salir', (ctx) => {
     exists_group(ctx.chat.id)
-    let index = listas[ctx.chat.id].indexOf(ctx.from.first_name)
+    let index = listas[ctx.chat.id]["activos"].indexOf(ctx.from.first_name)
     if (index > -1) {
         // Exist the user. Then remove it
         listas[ctx.chat.id]["activos"].splice(index, 1);
         if (listas[ctx.chat.id]["suplentes"].length > 0){
             // Add the first suplent in the actives players list
-            listas[ctx.chat.id]["activos"].push(getFirstSustitute())
+            listas[ctx.chat.id]["activos"].push(getFirstSustitute(ctx.chat.id))
         }
         return ctx.reply('Sos tremendo gil, chau.');
     }
