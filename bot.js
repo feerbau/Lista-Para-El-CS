@@ -63,7 +63,7 @@ function printAll(ctx){
 
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
-    listas[ctx.chat.id] = []
+    exists_group(ctx.chat.id)
 })
 
 bot_listas.command('toy', (ctx) => {
@@ -103,9 +103,16 @@ bot_listas.command('lista', (ctx)=>{
    printAll(ctx)
 })
 
-// bot_listas.command('ayuda',(ctx)=>{
-//     return ctx.reply('Fer,colgate de esta.')
-// })
+bot_listas.command('ayuda',(ctx)=>{
+    let ayuda = '- Comandos - \n'+
+    '/start - Inicia el Bot' + 
+    '/toy - Entras en la lista \n'+ 
+    '/salir - Salis de la lista \n'+
+    '/lista - Muestra la lista \n' +
+    '/limpiar - Limpia la lista \n'+
+    '/ayuda - Ayuda para uso del bot'
+    return ctx.reply(ayuda)
+})
 
 // expressApp.get('/', (req, res) => {
 //     res.send('Hello World!');
