@@ -39,7 +39,17 @@ function list(lista){
     lista.map((u,i) => nuevaLista += `${++i}. ${u} \n`)
     return nuevaLista
 }
-
+function get_start_time(ctx){
+    let hora = ctx.message.text.split(' ')[1]
+    if (hora != undefined){
+        listas[ctx.chat.id]["hora_activos"] = hora
+/*         return `Sale ese a las ${listas[ctx.chat.id]["hora_activos"]}` */
+    }
+    if (listas[ctx.chat.id]["hora_activos"] == ''){
+        return `No hay hora.`
+    }
+    return `Se juega a las ${listas[ctx.chat.id]["hora_activos"]}`
+}
 function printList(ctx,typeOfPlayer){
     exists_group(ctx.chat.id);
     return list(listas[ctx.chat.id][typeOfPlayer])
@@ -50,7 +60,9 @@ function printAll(ctx){
     if (listas[ctx.chat.id]["activos"].length == 0){
         return ctx.reply("No hay nadie")
     }
-    let listado = "Listado activos: \n"
+    
+    let listado = `${get_start_time(ctx)} \n`
+    listado += "Listado activos: \n"
     listado += `${printList(ctx,"activos")} \n`
     if (listas[ctx.chat.id]["suplentes"].length > 0){
         listado += "Listado suplentes: \n"
@@ -88,16 +100,15 @@ bot_listas.command('salir', (ctx) => {
     exists_group(ctx.chat.id)
     let index = listas[ctx.chat.id]["activos"].indexOf(ctx.from.first_name)
     if (index > -1) {
-        // Exist the user. Then remove it
+        // checks user existence in active list, then removes him.
         listas[ctx.chat.id]["activos"].splice(index, 1);
         if (listas[ctx.chat.id]["suplentes"].length > 0){
-            // Add the first suplent in the actives players list
+            // Add the first substitute to the active players list
             listas[ctx.chat.id]["activos"].push(getFirstSustitute(ctx.chat.id))
         }
         return ctx.reply('Sos tremendo gil, chau.');
     }
-
-    // Don't exist that user
+    // User is not in any list
     return ctx.reply('De donde queres salir vos, banana.');  
 })
 
@@ -112,22 +123,13 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
     '/salir - Salis de la lista \n'+
     '/lista - Muestra la lista \n' +
     '/limpiar - Limpia la lista \n'+
+    '/hora [string]- Devuelve/establece un horario \n'+
     '/ayuda - Ayuda para uso del bot'
     return ctx.reply(ayuda)
 })
 
 bot_listas.command('hora',(ctx)=>{
-    let hora = ctx.message.text.split(' ')[1]
-    // return ctx.reply(`hora: ${hora}, chat id ${ctx.chat.id}, lista ${listas[ctx.chat.id]["hora_activos"]}
-    // `)
-    if (hora != undefined){
-        listas[ctx.chat.id]["hora_activos"] = hora
-        return ctx.reply(`Sale ese a las ${listas[ctx.chat.id]["hora_activos"]}`)
-    }
-    if (listas[ctx.chat.id]["hora_activos"] == ''){
-        return ctx.reply(`No hay hora.`)
-    }
-    return ctx.reply(`Se juega a las ${listas[ctx.chat.id]["hora_activos"]}`)
+    return ctx.reply(get_start_time(ctx))
 })
 
 bot_listas.hears(['cs','csgo'],ctx =>{
