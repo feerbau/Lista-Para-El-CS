@@ -1,6 +1,15 @@
 const {Telegraf} = require('telegraf')
+// const express = require('express');
+// const expressApp = express();
 
 const bot_listas = new Telegraf('1752245041:AAGTaDOnPG5ndTYAUnQISoSxJAPQ0aRNfkc')
+
+const API_TOKEN = process.env.API_TOKEN || '1752245041:AAGTaDOnPG5ndTYAUnQISoSxJAPQ0aRNfkc';
+const PORT = process.env.PORT || 3000;
+const URL = process.env.URL || 'https://bot-csgo-lists.herokuapp.com/';
+
+bot_listas.telegram.setWebhook(`${URL}/bot${API_TOKEN}`)
+// expressApp.use(bot.webhookCallback(`/bot${API_TOKEN}`));
 
 var listas = {};
 
@@ -67,6 +76,7 @@ bot_listas.command('toy', (ctx) => {
 })
 
 bot_listas.command('limpiar', (ctx) =>{
+    
     exists_group(ctx.chat.id)
     listas[ctx.chat.id] = []
     ctx.reply('Limpiada padre!')
@@ -93,8 +103,15 @@ bot_listas.command('lista', (ctx)=>{
    printAll(ctx)
 })
 
-bot_listas.command('ayuda',(ctx)=>{
-    return ctx.reply('Fer,colgate de esta.')
-})
+// bot_listas.command('ayuda',(ctx)=>{
+//     return ctx.reply('Fer,colgate de esta.')
+// })
+
+// expressApp.get('/', (req, res) => {
+//     res.send('Hello World!');
+//   });
+//   expressApp.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+//   });
 
 bot_listas.launch()
