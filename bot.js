@@ -117,7 +117,8 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 
 bot_listas.command('hora',(ctx)=>{
     let hora = ctx.message.text.split(' ')[1]
-    if (hora != nil){
+    
+    if (hora != undefined){
         listas[id]["hora_activos"] = hora
         return ctx.reply(`Sale ese a las ${listas[id]["hora_activos"]}`)
     }
