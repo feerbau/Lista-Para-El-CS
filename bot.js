@@ -5,10 +5,10 @@ const {Telegraf} = require('telegraf')
 const bot_listas = new Telegraf('1752245041:AAGTaDOnPG5ndTYAUnQISoSxJAPQ0aRNfkc')
 
 const API_TOKEN = process.env.API_TOKEN || '1752245041:AAGTaDOnPG5ndTYAUnQISoSxJAPQ0aRNfkc';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const URL = process.env.URL || 'https://bot-csgo-lists.herokuapp.com/';
 
-bot_listas.telegram.setWebhook(`${URL}/bot${API_TOKEN}`)
+// bot_listas.telegram.setWebhook(`${URL}/bot${API_TOKEN}`)
 // expressApp.use(bot.webhookCallback(`/bot${API_TOKEN}`));
 
 var listas = {};
@@ -114,4 +114,9 @@ bot_listas.command('lista', (ctx)=>{
 //     console.log(`Server running on port ${PORT}`);
 //   });
 
-bot_listas.launch()
+bot_listas.launch({
+    webhook: {
+        domain: `${URL}+/bot${API_TOKEN}`,
+        port: PORT
+      }
+})
