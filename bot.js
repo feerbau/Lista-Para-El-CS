@@ -13,6 +13,12 @@ const URL = process.env.URL || 'https://bot-csgo-lists.herokuapp.com/';
 
 var listas = {};
 
+function validarHora(hora){
+    //eslint-disable-next-line 
+    return /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(hora)
+}
+
+
 function exists_group(id){
     if (!listas[id]){
         // If a group doesn´t exist, creates an empty one.
@@ -77,6 +83,44 @@ function create_lists(id){
     listas[id]["hora_activos"] = ''
     listas[id]["suplentes"] = []
 }
+
+function diffMinutes(dt2, dt1){
+  let diff = (dt2.getTime() - dt1.getTime()) / 1000;
+  diff /= 60;
+  return Math.abs(Math.round(diff));
+ }
+
+async function sleep(time){
+    return new Promise(resolve => {
+        const interval = setInterval(() => {
+        	resolve('foo')
+        	clearInterval(interval)
+        }, time * 10000)
+    })
+}
+
+async function alert5MinutesBeforeStart(ctx){
+    function obtenerHoraEspera(){
+        const minutosAntes = 5
+        let horarioSplitteado = listas[ctx.chat.id]["hora_activos"].split(":")
+        // 19:55
+        let horaJuego = parseInt(horarioSplitteado[0]) // 19
+        let minutosJuego = parseInt(horarioSplitteado[1]) /// 55
+        let fechaJuego = new Date()
+        fechaJuego.setHours(horaJuego)
+        fechaJuego.setMinutes(minutosJuego)
+        fechaJuego.setSeconds(0)
+        // Asumo que siempre entre la hora actual y de juego va a haber 5 mins o mas de diferencia
+        return horaAEsperar = new Date( fechaJuego - minutosAntes * 1000 * 60 ); // Devuelve la fecha con 5 minutos menos    
+    }
+
+    let horaAEsperar = obtenerHoraEspera()
+    let minutosEspera = diffMinutes(horaAEsperar, new Date())
+    await sleep(minutosEspera)
+    return ctx.reply(`En ${minutosEspera} arranca`)
+}
+
+
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
     exists_group(ctx.chat.id)
@@ -129,6 +173,7 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 })
 
 bot_listas.command('hora',(ctx)=>{
+    alert5MinutesBeforeStart(ctx)
     return ctx.reply(get_start_time(ctx))
 })
 
