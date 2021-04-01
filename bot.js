@@ -16,10 +16,7 @@ var listas = {};
 function exists_group(id){
     if (!listas[id]){
         // If a group doesn´t exist, creates an empty one.
-        listas[id] = {}
-        listas[id]["activos"] = []
-        listas[id]["hora_activos"] = ''
-        listas[id]["suplentes"] = []
+        create_lists(id)
     }
 }
 
@@ -62,6 +59,12 @@ function printAll(ctx){
     return ctx.reply(listado)
 }
 
+function create_lists(id){
+    listas[id] = {}
+    listas[id]["activos"] = []
+    listas[id]["hora_activos"] = ''
+    listas[id]["suplentes"] = []
+}
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
     exists_group(ctx.chat.id)
@@ -77,9 +80,7 @@ bot_listas.command('toy', (ctx) => {
 })
 
 bot_listas.command('limpiar', (ctx) =>{
-    
-    exists_group(ctx.chat.id)
-    listas[ctx.chat.id] = []
+    create_lists(ctx.chat.id)
     ctx.reply('Limpiada padre!')
 })
 
@@ -117,8 +118,8 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 
 bot_listas.command('hora',(ctx)=>{
     let hora = ctx.message.text.split(' ')[1]
-    return ctx.reply(`hora: ${hora}, chat id ${ctx.chat.id}, lista ${listas[ctx.chat.id]["hora_activos"]}
-     `)
+    // return ctx.reply(`hora: ${hora}, chat id ${ctx.chat.id}, lista ${listas[ctx.chat.id]["hora_activos"]}
+    // `)
     if (hora != undefined){
         listas[ctx.chat.id]["hora_activos"] = hora
         return ctx.reply(`Sale ese a las ${listas[ctx.chat.id]["hora_activos"]}`)
