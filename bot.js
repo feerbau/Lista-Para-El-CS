@@ -105,7 +105,7 @@ bot_listas.command('lista', (ctx)=>{
 
 bot_listas.command('ayuda',(ctx)=>{
     let ayuda = '- Comandos - \n'+
-    '/start - Inicia el Bot' + 
+    '/start - Inicia el Bot \n' + 
     '/toy - Entras en la lista \n'+ 
     '/salir - Salis de la lista \n'+
     '/lista - Muestra la lista \n' +
