@@ -119,13 +119,13 @@ bot_listas.command('hora',(ctx)=>{
     let hora = ctx.message.text.split(' ')[1]
     
     if (hora != undefined){
-        listas[id]["hora_activos"] = hora
-        return ctx.reply(`Sale ese a las ${listas[id]["hora_activos"]}`)
+        listas[ctx.chat.id]["hora_activos"] = hora
+        return ctx.reply(`Sale ese a las ${listas[ctx.chat.id]["hora_activos"]}`)
     }
-    if (listas[id]["hora_activos"] == ''){
+    if (listas[ctx.chat.id]["hora_activos"] == ''){
         return ctx.reply(`No hay hora.`)
     }
-    return ctx.reply(`Se juega a las ${listas[id]["hora_activos"]}`)
+    return ctx.reply(`Se juega a las ${listas[ctx.chat.id]["hora_activos"]}`)
 })
 
 bot_listas.hears(['cs','csgo'],ctx =>{
