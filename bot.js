@@ -15,9 +15,10 @@ var listas = {};
 
 function exists_group(id){
     if (!listas[id]){
-        // If not exist an grup, create it empty.
+        // If a group doesn´t exist, creates an empty one.
         listas[id] = {}
         listas[id]["activos"] = []
+        listas[id]["hora_activos"] = ''
         listas[id]["suplentes"] = []
     }
 }
@@ -99,11 +100,11 @@ bot_listas.command('salir', (ctx) => {
     return ctx.reply('De donde queres salir vos, banana.');  
 })
 
-bot_listas.command('lista', (ctx)=>{
+bot_listas.command(['lista','listita'], (ctx)=>{
    printAll(ctx)
 })
 
-bot_listas.command('ayuda',(ctx)=>{
+bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
     let ayuda = '- Comandos - \n'+
     '/start - Inicia el Bot \n' + 
     '/toy - Entras en la lista \n'+ 
@@ -113,6 +114,23 @@ bot_listas.command('ayuda',(ctx)=>{
     '/ayuda - Ayuda para uso del bot'
     return ctx.reply(ayuda)
 })
+
+bot_listas.command('hora',(ctx)=>{
+    let hora = listas[id]["hora_activos"] = ctx.update.message.text.split(' ').splice(1)
+    if (hora != nil){
+        listas[id]["hora_activos"] = hora
+        return ctx.reply(`Sale ese a las ${listas[id]["hora_activos"]}`)
+    }
+    if (listas[id]["hora_activos"] == ''){
+        return ctx.reply(`No hay hora.`)
+    }
+    return ctx.reply(`Se juega a las ${listas[id]["hora_activos"]}`)
+})
+
+bot_listas.hears(['cs','csgo'],ctx =>{
+    ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
+})
+
 
 // expressApp.get('/', (req, res) => {
 //     res.send('Hello World!');
