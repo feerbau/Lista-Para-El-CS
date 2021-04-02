@@ -136,17 +136,18 @@ function diffMinutes(dt2, dt1){
 }
   
 async function sleep(time){
+    ctx.reply("Tiempo " + time)
     return new Promise(resolve => {
         const interval = setInterval(() => {
+            ctx.reply("Entre al interval")
             resolve('foo')
             clearInterval(interval)
+            ctx.reply("BYE BYE")
         }, time * 60000)
     })
 }
 
 function getTimeToPlay(ctx){
-    ctx.reply(`Hora puesta: ${listas[ctx.chat.id]["hora_activos"]}`)
-
     let horarioSplitteado = listas[ctx.chat.id]["hora_activos"].split(":")
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
@@ -164,15 +165,13 @@ function obtenerHoraEspera(fechaJuego){
 }
 
 async function alert5MinutesBeforeStart(ctx){
-    ctx.reply(`Hora puesta: ${listas[ctx.chat.id]["hora_activos"]}`)
-    
-    let fechaJuegoV2 = getTimeToPlay(ctx)
-    let horaAEsperar = obtenerHoraEspera(fechaJuegoV2)
+    let fechaJuego = getTimeToPlay(ctx)
+    let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
     ctx.reply("Pre sleep")
     await sleep(minutosEspera)
     ctx.reply("Post sleep")
-    return ctx.reply(`En ${diffMinutes(fechaJuegoV2, new Date())} arranca`)
+    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
 }
 
 bot_listas.start((ctx) => {
