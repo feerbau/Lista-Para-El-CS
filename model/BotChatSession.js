@@ -24,7 +24,7 @@ class BotChatSession {
     }
 
     getStartTime(){
-        return (this.listaSesiones[idSession]["hora_activos"] === undefined ) ? `No hay hora.` : `Se juega a las ${this.listaSesiones[idSession]["hora_activos"]}`
+        return this.listaSesiones[idSession]["hora_activos"]
     }
 
     _printList(typeOfPlayer){

@@ -27,10 +27,13 @@ function getTimeWait(fechaJuego){
 }
 
 export async function alert5MinutesBeforeStart(bot){
-    let fechaJuego = getTimeToPlay(bot.getTimeToPlay())
+    let fechaJuego = getTimeToPlay(bot.getStartTime())
+    if(fechaJuego === undefined){
+        return ctx.reply("No hay hora de juego definida")
+    }
     let horaAEsperar = getTimeWait(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    await sleep(ctx, minutosEspera)
+    await sleep(minutosEspera)
     return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
 }
 
