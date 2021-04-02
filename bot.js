@@ -167,7 +167,9 @@ async function alert5MinutesBeforeStart(ctx){
     let fechaJuego = getTimeToPlay(ctx.chat.id)
     let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
+    ctx.reply("Pre sleep")
     await sleep(minutosEspera)
+    ctx.reply("Post sleep")
     return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
 }
 
