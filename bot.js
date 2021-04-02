@@ -114,12 +114,14 @@ function getTimeToPlay(hora){
     return fechaJuego
 }
 
+function obtenerHoraEspera(fechaJuego){
+    // Devuelve la fecha con 5 minutos menos 
+    const minutosAntes = 5
+    return new Date( fechaJuego - minutosAntes * 60000 );    
+}
+
 async function alert5MinutesBeforeStart(hora){
-    function obtenerHoraEspera(fechaJuego){
-        // Devuelve la fecha con 5 minutos menos 
-        const minutosAntes = 5
-        return new Date( fechaJuego - minutosAntes * 60000 );    
-    }
+
     let fechaJuego = getTimeToPlay(hora)
     let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
@@ -135,7 +137,7 @@ function diffMinutes(dt2, dt1){
     return Math.abs(Math.round(diff));
 }
   
-async function sleep(time){
+async function sleep(ctx, time){
     ctx.reply("Tiempo " + time)
     return new Promise(resolve => {
         const interval = setInterval(() => {
@@ -168,10 +170,12 @@ async function alert5MinutesBeforeStart(ctx){
     let fechaJuego = getTimeToPlay(ctx)
     let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    ctx.reply("Pre sleep")
+    ctx.reply("Pre sleep " + new Date())
+    ctx.reply(`Fecha juego ${fechaJuego}`)
+    ctx.reply(`Hora a esperar ${horaAEsperar}`)
     ctx.reply(` Minutos espera ${minutosEspera}`)
 
-    await sleep(minutosEspera)
+    await sleep(ctx, minutosEspera)
     ctx.reply("Post sleep")
     return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
 }
