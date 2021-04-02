@@ -1,8 +1,7 @@
-import {timePlay} from './helpers/helpers'
-import {BotChatSession} from './model/BotChatSession'
+import { BotChatSession } from './model/BotChatSession.js'
 
 
-const {Telegraf} = require('telegraf')
+const { Telegraf } = require('telegraf')
 // const express = require('express');
 // const expressApp = express();
 
@@ -15,7 +14,62 @@ const URL = process.env.URL || 'https://bot-csgo-lists.herokuapp.com/';
 // bot_listas.telegram.setWebhook(`${URL}/bot${API_TOKEN}`)
 // expressApp.use(bot.webhookCallback(`/bot${API_TOKEN}`));
 
-var listas = {};
+let bot;
+
+bot_listas.start((ctx) => {
+    ctx.reply('PASAME TU LISTITA PA');
+    bot = BotChatSession(ctx.chat.id)
+})
+
+bot_listas.command('toy', (ctx) => {
+    let feedback = bot.addUser(ctx.from.first_name,ctx)
+    return ctx.reply(feedback)
+})
+
+bot_listas.command('limpiar', (ctx) =>{
+    let feedback = bot.cleanSession()
+    ctx.reply(feedback)
+})
+
+bot_listas.command('salir', (ctx) => {
+    let feedback = bot.removeUser(ctx.from.first_name)
+    ctx.reply(feedback)
+})
+
+bot_listas.command(['lista','listita'], (ctx)=>{
+    let usersList = bot.printAll(ctx)
+    ctx.reply(usersList)
+})
+
+bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
+    let ayuda = '- Comandos - \n'+
+    '/start - Inicia el Bot \n' + 
+    '/toy - Entras en la lista \n'+ 
+    '/salir - Salis de la lista \n'+
+    '/lista - Muestra la lista \n' +
+    '/limpiar - Limpia la lista \n'+
+    '/hora [string]- Devuelve/establece un horario \n'+
+    '/ayuda - Ayuda para uso del bot'
+    return ctx.reply(ayuda)
+})
+
+bot_listas.command('hora',(ctx)=>{
+    let horaJuego = ctx.message.text.split(" ")[1] // At first position is located hour parameter
+    bot.timePlay(horaJuego)
+
+})
+
+bot_listas.hears(['cs','csgo'],ctx =>{
+    ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
+})
+
+bot_listas.launch({
+     webhook: {
+        domain: `${URL}+/bot${API_TOKEN}`,
+        port: PORT
+      } 
+})
+
 
 /*
 function validarHora(hora){
@@ -125,58 +179,3 @@ async function alert5MinutesBeforeStart(ctx){
     return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
 }
 */
-
-let bot;
-
-bot_listas.start((ctx) => {
-    ctx.reply('PASAME TU LISTITA PA');
-    bot = BotChatSession(ctx.chat.id)
-})
-
-bot_listas.command('toy', (ctx) => {
-    let feedback = bot.addUser(ctx.from.first_name,ctx)
-    return ctx.reply(feedback)
-})
-
-bot_listas.command('limpiar', (ctx) =>{
-    let feedback = bot.cleanSession()
-    ctx.reply(feedback)
-})
-
-bot_listas.command('salir', (ctx) => {
-    let feedback = bot.removeUser(ctx.from.first_name)
-    ctx.reply(feedback)
-})
-
-bot_listas.command(['lista','listita'], (ctx)=>{
-    let usersList = bot.printAll(ctx)
-    ctx.reply(usersList)
-})
-
-bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
-    let ayuda = '- Comandos - \n'+
-    '/start - Inicia el Bot \n' + 
-    '/toy - Entras en la lista \n'+ 
-    '/salir - Salis de la lista \n'+
-    '/lista - Muestra la lista \n' +
-    '/limpiar - Limpia la lista \n'+
-    '/hora [string]- Devuelve/establece un horario \n'+
-    '/ayuda - Ayuda para uso del bot'
-    return ctx.reply(ayuda)
-})
-
-bot_listas.command('hora',(ctx)=>{
-   bot.timePlay(ctx.message.text)
-
-})
-
-bot_listas.hears(['cs','csgo'],ctx =>{
-    ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
-})
-
-bot_listas.launch({
-     webhook: {
-        domain: `${URL}+/bot${API_TOKEN}`,
-        port: PORT
-      } 
-})

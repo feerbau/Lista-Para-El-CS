@@ -4,10 +4,6 @@ const diffMinutes = (dt2, dt1) => {
     return Math.abs(Math.round(diff));
 }
 
-export async function sleep(time){
-    return new Promise(resolve => setTimeout(resolve, time * 60000));
-}
-
 function getTimeToPlay(horaAJugar){
     // Parse horaAJugar into a Date object
     let horarioSplitteado = horaAJugar.split(":")
@@ -26,6 +22,15 @@ function getTimeWait(fechaJuego){
     return new Date( fechaJuego - minutosAntes * 60000 );    
 }
 
+export const validateHour = (hora) => {
+    //eslint-disable-next-line 
+    return /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(hora)
+}
+
+export async function sleep(time){
+    return new Promise(resolve => setTimeout(resolve, time * 60000));
+}
+
 export async function alert5MinutesBeforeStart(bot){
     let fechaJuego = getTimeToPlay(bot.getStartTime())
     if(fechaJuego === undefined){
@@ -37,7 +42,3 @@ export async function alert5MinutesBeforeStart(bot){
     return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
 }
 
-export const validateHour = (hora) => {
-    //eslint-disable-next-line 
-    return /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(hora)
-}
