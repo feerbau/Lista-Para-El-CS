@@ -192,7 +192,7 @@ bot_listas.hears(['cs','csgo'],ctx =>{
 //     console.log(`Server running on port ${PORT}`);
 //   });
 
-bot_listas.launch(ctx=>{
+bot_listas.launch({
      webhook: {
         domain: `${URL}+/bot${API_TOKEN}`,
         port: PORT
