@@ -162,6 +162,8 @@ async function alert5MinutesBeforeStart(ctx){
         const minutosAntes = 5
         return new Date( fechaJuego - minutosAntes * 60000 );    
     }
+    ctx.reply(`Hora puesta: ${listas[ctx.chat.id]["hora_activos"]}`)
+    ctx.reply("Puto el que lee")
     let fechaJuego = getTimeToPlay(ctx.chat.id)
     let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
