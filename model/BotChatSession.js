@@ -56,7 +56,7 @@ class BotChatSession {
         return listado
     }
 
-    cleanSession(idSession){
+    cleanSession(){
         this._initialize()
         return "Limpiada padre!"
     }
