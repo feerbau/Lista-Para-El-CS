@@ -155,6 +155,7 @@ bot_listas.command('salir', (ctx) => {
 })
 
 bot_listas.command(['lista','listita'], (ctx)=>{
+    exists_group(ctx.chat.id)
    printAll(ctx)
 })
 
@@ -171,6 +172,7 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 })
 
 bot_listas.command('hora',(ctx)=>{
+    
     ctx.reply(get_start_time(ctx))
     let hora = ctx.message.text.split(' ')[1]
     if (hora != undefined){
@@ -190,9 +192,9 @@ bot_listas.hears(['cs','csgo'],ctx =>{
 //     console.log(`Server running on port ${PORT}`);
 //   });
 
-bot_listas.launch({
-    webhook: {
+bot_listas.launch(ctx=>{
+     webhook: {
         domain: `${URL}+/bot${API_TOKEN}`,
         port: PORT
-      }
+      } 
 })
