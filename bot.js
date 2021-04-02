@@ -156,21 +156,20 @@ function getTimeToPlay(id){
     return fechaJuego
 }
 
+function obtenerHoraEspera(fechaJuego){
+    // Devuelve la fecha con 5 minutos menos 
+    const minutosAntes = 5
+    return new Date( fechaJuego - minutosAntes * 60000 );    
+}
+
 async function alert5MinutesBeforeStart(ctx){
-    function obtenerHoraEspera(fechaJuego){
-        // Devuelve la fecha con 5 minutos menos 
-        const minutosAntes = 5
-        return new Date( fechaJuego - minutosAntes * 60000 );    
-    }
-    ctx.reply(`Hora puesta: ${listas[ctx.chat.id]["hora_activos"]}`)
-    ctx.reply("Puto el que lee")
-    let fechaJuego = getTimeToPlay(ctx.chat.id)
-    let horaAEsperar = obtenerHoraEspera(fechaJuego)
+    let fechaJuegoV2 = getTimeToPlay(ctx.chat.id)
+    let horaAEsperar = obtenerHoraEspera(fechaJuegoV2)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
     ctx.reply("Pre sleep")
     await sleep(minutosEspera)
     ctx.reply("Post sleep")
-    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
+    return ctx.reply(`En ${diffMinutes(fechaJuegoV2, new Date())} arranca`)
 }
 
 bot_listas.start((ctx) => {
