@@ -144,7 +144,7 @@ async function sleep(time){
     })
 }
 
-function getTimeToPlay(id){
+function getTimeToPlay(ctx){
     ctx.reply(`Hora puesta: ${listas[ctx.chat.id]["hora_activos"]}`)
 
     let horarioSplitteado = listas[ctx.chat.id]["hora_activos"].split(":")
@@ -166,7 +166,7 @@ function obtenerHoraEspera(fechaJuego){
 async function alert5MinutesBeforeStart(ctx){
     ctx.reply(`Hora puesta: ${listas[ctx.chat.id]["hora_activos"]}`)
     
-    let fechaJuegoV2 = getTimeToPlay(ctx.chat.id)
+    let fechaJuegoV2 = getTimeToPlay(ctx)
     let horaAEsperar = obtenerHoraEspera(fechaJuegoV2)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
     ctx.reply("Pre sleep")
