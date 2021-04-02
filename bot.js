@@ -89,47 +89,40 @@ function create_lists(id){
 /*
 
 function diffMinutes(dt2, dt1){
-  let diff = (dt2.getTime() - dt1.getTime()) / 1000;
-  diff /= 60;
-  return Math.abs(Math.round(diff));
+    let diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= 60;
+    return Math.abs(Math.round(diff));
 }
-
+  
 async function sleep(time){
     return new Promise(resolve => {
         const interval = setInterval(() => {
-        	resolve('foo')
-        	clearInterval(interval)
+            resolve('foo')
+            clearInterval(interval)
         }, time * 60000)
     })
 }
 
-async function p(){
-  await sleep(1);  console.log("termine")
-}
-
 function getTimeToPlay(hora){
-        let horarioSplitteado = hora.split(":")
-        // 19:55
-        let horaJuego = parseInt(horarioSplitteado[0]) // 19
-        let minutosJuego = parseInt(horarioSplitteado[1]) /// 55
-        let fechaJuego = new Date()
-        fechaJuego.setHours(horaJuego)
-        fechaJuego.setMinutes(minutosJuego)
-        fechaJuego.setSeconds(0)
-        return fechaJuego
-}
-
-function obtenerHoraEspera(fechaJuego){
-    const minutosAntes = 5
-    // Asumo que siempre entre la hora actual y de juego va a haber 5 mins o mas de diferencia
-    return new Date( fechaJuego - minutosAntes * 1000 * 60 ); // Devuelve la fecha con 5 minutos menos    
+    let horarioSplitteado = hora.split(":")
+    let horaJuego = parseInt(horarioSplitteado[0]) 
+    let minutosJuego = parseInt(horarioSplitteado[1]) 
+    let fechaJuego = new Date()
+    fechaJuego.setHours(horaJuego)
+    fechaJuego.setMinutes(minutosJuego)
+    fechaJuego.setSeconds(0)
+    return fechaJuego
 }
 
 async function alert5MinutesBeforeStart(hora){
-
-    const fechaJuego = getTimeToPlay(hora)
-    const horaAEsperar = obtenerHoraEspera(fechaJuego)
-    const minutosEspera = diffMinutes(horaAEsperar, new Date())
+    function obtenerHoraEspera(fechaJuego){
+        // Devuelve la fecha con 5 minutos menos 
+        const minutosAntes = 5
+        return new Date( fechaJuego - minutosAntes * 60000 );    
+    }
+    let fechaJuego = getTimeToPlay(hora)
+    let horaAEsperar = obtenerHoraEspera(fechaJuego)
+    let minutosEspera = diffMinutes(horaAEsperar, new Date())
     await sleep(minutosEspera)
     return console.log(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
 }
@@ -152,6 +145,7 @@ async function sleep(time){
 }
 
 function getTimeToPlay(id){
+    ctx.reply(`Hora puesta: ${listas[id]["hora_activos"]}`)
     let horarioSplitteado = listas[id]["hora_activos"].split(":")
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
