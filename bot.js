@@ -55,7 +55,7 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 
 bot_listas.command('hora',(ctx)=>{
     let horaJuego = ctx.message.text.split(" ")[1] // At first position is located hour parameter
-    bot.timePlay(horaJuego)
+    bot.timePlay(horaJuego,ctx)
 
 })
 

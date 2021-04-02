@@ -31,7 +31,7 @@ export async function sleep(time){
     return new Promise(resolve => setTimeout(resolve, time * 60000));
 }
 
-export async function alert5MinutesBeforeStart(bot){
+export async function alert5MinutesBeforeStart(bot,ctx){
     let fechaJuego = getTimeToPlay(bot.getStartTime())
     if(fechaJuego === undefined){
         return ctx.reply("No hay hora de juego definida")

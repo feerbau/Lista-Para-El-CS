@@ -99,7 +99,7 @@ class BotChatSession {
         return "De donde queres salir vos, banana."
     }
 
-    timePlay(hora){
+    timePlay(hora,ctx){
         /*
             Set the start time to play and start a promise that alert 5 minutes before game the start of it. 
         */
@@ -108,7 +108,7 @@ class BotChatSession {
         }
         ctx.reply(`Se juega a las ${hora}`)
         // Aca ya me asegure que la hora no es undefined y que el formato es valido
-        alert5MinutesBeforeStart(this)
+        alert5MinutesBeforeStart(this,ctx)
     }
 }
 
