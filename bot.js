@@ -49,7 +49,6 @@ function get_start_time(ctx){
     let hora = ctx.message.text.split(' ')[1]
     if (hora != undefined){
         listas[ctx.chat.id]["hora_activos"] = hora
-/*         return `Sale ese a las ${listas[ctx.chat.id]["hora_activos"]}` */
     }
     if (listas[ctx.chat.id]["hora_activos"] == ''){
         return `No hay hora.`
@@ -85,52 +84,6 @@ function create_lists(id){
 }
 
 
-
-/*
-
-function diffMinutes(dt2, dt1){
-    let diff = (dt2.getTime() - dt1.getTime()) / 1000;
-    diff /= 60;
-    return Math.abs(Math.round(diff));
-}
-  
-async function sleep(time){
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            resolve('foo')
-            clearInterval(interval)
-        }, time * 60000)
-    })
-}
-
-function getTimeToPlay(hora){
-    let horarioSplitteado = hora.split(":")
-    let horaJuego = parseInt(horarioSplitteado[0]) 
-    let minutosJuego = parseInt(horarioSplitteado[1]) 
-    let fechaJuego = new Date()
-    fechaJuego.setHours(horaJuego)
-    fechaJuego.setMinutes(minutosJuego)
-    fechaJuego.setSeconds(0)
-    return fechaJuego
-}
-
-function obtenerHoraEspera(fechaJuego){
-    // Devuelve la fecha con 5 minutos menos 
-    const minutosAntes = 5
-    return new Date( fechaJuego - minutosAntes * 60000 );    
-}
-
-async function alert5MinutesBeforeStart(hora){
-
-    let fechaJuego = getTimeToPlay(hora)
-    let horaAEsperar = obtenerHoraEspera(fechaJuego)
-    let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    await sleep(minutosEspera)
-    return console.log(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
-}
-*/
-
-
 function diffMinutes(dt2, dt1){
     let diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= 60;
@@ -138,15 +91,7 @@ function diffMinutes(dt2, dt1){
 }
   
 async function sleep(ctx, time){
-    ctx.reply("Tiempo " + time)
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            ctx.reply("Entre al interval")
-            resolve('foo')
-            clearInterval(interval)
-            ctx.reply("BYE BYE")
-        }, time * 60000)
-    })
+    return new Promise(resolve => setTimeout(resolve, time * 60000));
 }
 
 function getTimeToPlay(ctx){
@@ -170,14 +115,8 @@ async function alert5MinutesBeforeStart(ctx){
     let fechaJuego = getTimeToPlay(ctx)
     let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    ctx.reply("Pre sleep " + new Date())
-    ctx.reply(`Fecha juego ${fechaJuego}`)
-    ctx.reply(`Hora a esperar ${horaAEsperar}`)
-    ctx.reply(` Minutos espera ${minutosEspera}`)
-
     await sleep(ctx, minutosEspera)
-    ctx.reply("Post sleep")
-    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
+    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
 }
 
 bot_listas.start((ctx) => {
@@ -233,7 +172,10 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 
 bot_listas.command('hora',(ctx)=>{
     ctx.reply(get_start_time(ctx))
-    alert5MinutesBeforeStart(ctx)
+    let hora = ctx.message.text.split(' ')[1]
+    if (hora != undefined){
+        alert5MinutesBeforeStart(ctx)
+        }
 })
 
 bot_listas.hears(['cs','csgo'],ctx =>{
