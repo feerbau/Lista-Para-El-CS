@@ -1,3 +1,7 @@
+import {timePlay} from './helpers/helpers'
+import {BotChatSession} from './model/BotChatSession'
+
+
 const {Telegraf} = require('telegraf')
 // const express = require('express');
 // const expressApp = express();
@@ -13,11 +17,11 @@ const URL = process.env.URL || 'https://bot-csgo-lists.herokuapp.com/';
 
 var listas = {};
 
+/*
 function validarHora(hora){
     //eslint-disable-next-line 
     return /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(hora)
 }
-
 
 function exists_group(id){
     if (!listas[id]){
@@ -45,17 +49,18 @@ function list(lista){
     lista.map((u,i) => nuevaLista += `${++i}. ${u} \n`)
     return nuevaLista
 }
+
 function get_start_time(ctx){
     let hora = ctx.message.text.split(' ')[1]
     if (hora != undefined){
         listas[ctx.chat.id]["hora_activos"] = hora
-/*         return `Sale ese a las ${listas[ctx.chat.id]["hora_activos"]}` */
     }
     if (listas[ctx.chat.id]["hora_activos"] == ''){
         return `No hay hora.`
     }
     return `Se juega a las ${listas[ctx.chat.id]["hora_activos"]}`
 }
+
 function printList(ctx,typeOfPlayer){
     exists_group(ctx.chat.id);
     return list(listas[ctx.chat.id][typeOfPlayer])
@@ -84,53 +89,7 @@ function create_lists(id){
     listas[id]["suplentes"] = []
 }
 
-
-
 /*
-
-function diffMinutes(dt2, dt1){
-    let diff = (dt2.getTime() - dt1.getTime()) / 1000;
-    diff /= 60;
-    return Math.abs(Math.round(diff));
-}
-  
-async function sleep(time){
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            resolve('foo')
-            clearInterval(interval)
-        }, time * 60000)
-    })
-}
-
-function getTimeToPlay(hora){
-    let horarioSplitteado = hora.split(":")
-    let horaJuego = parseInt(horarioSplitteado[0]) 
-    let minutosJuego = parseInt(horarioSplitteado[1]) 
-    let fechaJuego = new Date()
-    fechaJuego.setHours(horaJuego)
-    fechaJuego.setMinutes(minutosJuego)
-    fechaJuego.setSeconds(0)
-    return fechaJuego
-}
-
-function obtenerHoraEspera(fechaJuego){
-    // Devuelve la fecha con 5 minutos menos 
-    const minutosAntes = 5
-    return new Date( fechaJuego - minutosAntes * 60000 );    
-}
-
-async function alert5MinutesBeforeStart(hora){
-
-    let fechaJuego = getTimeToPlay(hora)
-    let horaAEsperar = obtenerHoraEspera(fechaJuego)
-    let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    await sleep(minutosEspera)
-    return console.log(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
-}
-*/
-
-
 function diffMinutes(dt2, dt1){
     let diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= 60;
@@ -138,15 +97,7 @@ function diffMinutes(dt2, dt1){
 }
   
 async function sleep(ctx, time){
-    ctx.reply("Tiempo " + time)
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            ctx.reply("Entre al interval")
-            resolve('foo')
-            clearInterval(interval)
-            ctx.reply("BYE BYE")
-        }, time * 60000)
-    })
+    return new Promise(resolve => setTimeout(resolve, time * 60000));
 }
 
 function getTimeToPlay(ctx){
@@ -170,53 +121,36 @@ async function alert5MinutesBeforeStart(ctx){
     let fechaJuego = getTimeToPlay(ctx)
     let horaAEsperar = obtenerHoraEspera(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    ctx.reply("Pre sleep " + new Date())
-    ctx.reply(`Fecha juego ${fechaJuego}`)
-    ctx.reply(`Hora a esperar ${horaAEsperar}`)
-    ctx.reply(` Minutos espera ${minutosEspera}`)
-
     await sleep(ctx, minutosEspera)
-    ctx.reply("Post sleep")
-    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca`)
+    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
 }
+*/
+
+let bot;
 
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
-    exists_group(ctx.chat.id)
+    bot = BotChatSession(ctx.chat.id)
 })
 
 bot_listas.command('toy', (ctx) => {
-    exists_group(ctx.chat.id)
-    if (!listas[ctx.chat.id]["activos"].includes(ctx.from.first_name)){    
-        add_to_list(ctx,ctx.from.first_name,listas[ctx.chat.id])
-        return
-    }
-    return ctx.reply('Ya estas en la lista pa.')
+    let feedback = bot.addUser(ctx.from.first_name,ctx)
+    return ctx.reply(feedback)
 })
 
 bot_listas.command('limpiar', (ctx) =>{
-    create_lists(ctx.chat.id)
-    ctx.reply('Limpiada padre!')
+    let feedback = bot.cleanSession()
+    ctx.reply(feedback)
 })
 
 bot_listas.command('salir', (ctx) => {
-    exists_group(ctx.chat.id)
-    let index = listas[ctx.chat.id]["activos"].indexOf(ctx.from.first_name)
-    if (index > -1) {
-        // checks user existence in active list, then removes him.
-        listas[ctx.chat.id]["activos"].splice(index, 1);
-        if (listas[ctx.chat.id]["suplentes"].length > 0){
-            // Add the first substitute to the active players list
-            listas[ctx.chat.id]["activos"].push(getFirstSustitute(ctx.chat.id))
-        }
-        return ctx.reply('Sos tremendo gil, chau.');
-    }
-    // User is not in any list
-    return ctx.reply('De donde queres salir vos, banana.');  
+    let feedback = bot.removeUser(ctx.from.first_name)
+    ctx.reply(feedback)
 })
 
 bot_listas.command(['lista','listita'], (ctx)=>{
-   printAll(ctx)
+    let usersList = bot.printAll(ctx)
+    ctx.reply(usersList)
 })
 
 bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
@@ -232,25 +166,17 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 })
 
 bot_listas.command('hora',(ctx)=>{
-    ctx.reply(get_start_time(ctx))
-    alert5MinutesBeforeStart(ctx)
+   bot.timePlay(ctx.message.text)
+
 })
 
 bot_listas.hears(['cs','csgo'],ctx =>{
     ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
 })
 
-
-// expressApp.get('/', (req, res) => {
-//     res.send('Hello World!');
-//   });
-//   expressApp.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//   });
-
 bot_listas.launch({
-    webhook: {
+     webhook: {
         domain: `${URL}+/bot${API_TOKEN}`,
         port: PORT
-      }
+      } 
 })
