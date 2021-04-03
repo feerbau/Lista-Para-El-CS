@@ -2,9 +2,9 @@ const {Telegraf} = require('telegraf')
 // const express = require('express');
 // const expressApp = express();
 
-const bot_listas = new Telegraf('1752245041:AAGTaDOnPG5ndTYAUnQISoSxJAPQ0aRNfkc')
+const bot_listas = new Telegraf('1752245041:AAHyjHO4BXNTDX55GAjLiaKxyhydK2thwDY')
 
-const API_TOKEN = process.env.API_TOKEN || '1752245041:AAGTaDOnPG5ndTYAUnQISoSxJAPQ0aRNfkc';
+const API_TOKEN = process.env.API_TOKEN || '1752245041:AAHyjHO4BXNTDX55GAjLiaKxyhydK2thwDY';
 const PORT = process.env.PORT || 5000;
 const URL = process.env.URL || 'https://bot-csgo-lists.herokuapp.com/';
 
