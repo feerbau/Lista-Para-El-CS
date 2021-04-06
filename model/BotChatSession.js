@@ -1,4 +1,4 @@
-import {validateHour,alert5MinutesBeforeStart} from '../helpers/helpers.js'
+const helpers = require("../helpers/helpers.js");
 
 class BotChatSession {
     constructor(idSession){
@@ -18,13 +18,13 @@ class BotChatSession {
         if (hora === undefined){
             return undefined
         }
-        if(!validateHour(hora)) return null
+        if(!helpers.validateHour(hora)) return null
         this.listaSesiones[this.idSession]["hora_activos"] = hora
         return hora
     }
 
     getStartTime(){
-        return this.listaSesiones[idSession]["hora_activos"]
+        return this.listaSesiones[this.idSession]["hora_activos"]
     }
 
     _printList(typeOfPlayer){
@@ -108,8 +108,10 @@ class BotChatSession {
         }
         ctx.reply(`Se juega a las ${hora}`)
         // Aca ya me asegure que la hora no es undefined y que el formato es valido
-        alert5MinutesBeforeStart(this,ctx)
+        helpers.alert5MinutesBeforeStart(this,ctx)
     }
 }
 
-export default { BotChatSession }
+module.exports = {
+    BotChatSession: BotChatSession
+}

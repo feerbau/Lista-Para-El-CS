@@ -22,16 +22,16 @@ function getTimeWait(fechaJuego){
     return new Date( fechaJuego - minutosAntes * 60000 );    
 }
 
-export const validateHour = (hora) => {
+const validateHour = (hora) => {
     //eslint-disable-next-line 
     return /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(hora)
 }
 
-export async function sleep(time){
+async function sleep(time){
     return new Promise(resolve => setTimeout(resolve, time * 60000));
 }
 
-export async function alert5MinutesBeforeStart(bot,ctx){
+async function alert5MinutesBeforeStart(bot,ctx){
     let fechaJuego = getTimeToPlay(bot.getStartTime())
     let horaAEsperar = getTimeWait(fechaJuego)
     let minutosEspera = diffMinutes(horaAEsperar, new Date())
@@ -39,3 +39,7 @@ export async function alert5MinutesBeforeStart(bot,ctx){
     return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
 }
 
+module.exports = {
+    alert5MinutesBeforeStart: alert5MinutesBeforeStart,
+    validateHour: validateHour
+}
