@@ -10,7 +10,6 @@ const bot_listas = new Telegraf(API_TOKEN)
 
 let bot
 
-/*
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
     bot = new BotChatSession(ctx.chat.id)
@@ -18,6 +17,7 @@ bot_listas.start((ctx) => {
 
 bot_listas.command('toy', (ctx) => {
     let feedback = bot.addUser(ctx.from.first_name,ctx)
+    bot.printAll(ctx)
     return ctx.reply(feedback)
 })
 

@@ -1,7 +1,9 @@
 const diffMinutes = (dt2, dt1) => {
+    console.log("Actual " + dt1)
     let diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= 60;
-    return Math.abs(Math.round(diff));
+    //return Math.abs(diff)
+    return diff
 }
 
 function getTimeToPlay(horaAJugar){
@@ -16,10 +18,12 @@ function getTimeToPlay(horaAJugar){
     return fechaJuego
 }
 
-function getTimeWait(fechaJuego){
+function getTimeWait(horaJuego){
     // Devuelve la fecha con 5 minutos menos 
     const minutosAntes = 5
-    return new Date( fechaJuego - minutosAntes * 60000 );    
+    let horaAEsperar = new Date( horaJuego - minutosAntes * 60000 )
+    horaAEsperar.setSeconds(0)
+    return horaAEsperar 
 }
 
 const validateHour = (hora) => {
@@ -32,11 +36,24 @@ async function sleep(time){
 }
 
 async function alert5MinutesBeforeStart(bot,ctx){
-    let fechaJuego = getTimeToPlay(bot.getStartTime())
-    let horaAEsperar = getTimeWait(fechaJuego)
-    let minutosEspera = diffMinutes(horaAEsperar, new Date())
-    await sleep(minutosEspera)
-    return ctx.reply(`En ${diffMinutes(fechaJuego, new Date())} arranca la partida. Vayan activando perris`)
+    const horaJuego = getTimeToPlay(bot.getStartTime())
+    const horaAEsperar = getTimeWait(horaJuego)
+    const minutosEspera = diffMinutes(horaAEsperar, new Date())
+    if(minutosEspera >= 0 ){
+        // Queda tiempo para que lleguemos a que falten 5 minutos
+        await sleep(minutosEspera)
+        return ctx.reply("En 5 arranca")
+        //return ctx.reply(`En ${diffMinutes(horaJuego, new Date())} arranca la partida. Vayan activando perris`)
+
+    }
+    // Ya falta menos de 5 minutos
+    let tiempoFaltante = Math.round(diffMinutes(horaJuego, new Date()))
+    if(tiempoFaltante > 0){
+        // Todavia falta, pero faltan menos de 5 minutos
+        return ctx.reply(`En ${tiempoFaltante} arranca la partida. Vayan activando perris`)
+    }
+    // Ya deberia haber arrancado
+    return ctx.reply("Ya deberia haber arrancado")
 }
 
 module.exports = {

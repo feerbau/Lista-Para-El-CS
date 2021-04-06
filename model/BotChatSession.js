@@ -15,9 +15,6 @@ class BotChatSession {
     }
 
     setStartTime(hora){
-        if (hora === undefined){
-            return undefined
-        }
         if(!helpers.validateHour(hora)) return null
         this.listaSesiones[this.idSession]["hora_activos"] = hora
         return hora
@@ -61,13 +58,12 @@ class BotChatSession {
         return "Limpiada padre!"
     }
 
-    addUser(userName,ctx) {
+    addUser(userName) {
         /* 
             Add a user to play. If a list is full, push him into sustitutes list
         */
         if (!this.listaSesiones[this.idSession]["activos"].includes(userName)){    
             if (this.listaSesiones[this.idSession]["activos"].length >= 5){
-                this.printAll(ctx)
                 this.listaSesiones[this.idSession]["suplentes"].push(userName)
                 return "Ya esta llena la lista, dormiste. Entras como suplente"
             }
