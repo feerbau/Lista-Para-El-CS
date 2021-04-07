@@ -17,7 +17,7 @@ bot_listas.start((ctx) => {
 
 bot_listas.command('toy', (ctx) => {
     let feedback = bot.addUser(ctx.from.first_name,ctx)
-    bot.printAll(ctx)
+    bot.printAll()
     return ctx.reply(feedback)
 })
 

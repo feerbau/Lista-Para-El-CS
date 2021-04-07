@@ -36,19 +36,19 @@ class BotChatSession {
         return list(this.listaSesiones[this.idSession][typeOfPlayer])
     }
     
-    printAll(ctx){
+    printAll(){
         /* 
             Print all the list of all types of players 
         */
         if (this.listaSesiones[this.idSession]["activos"].length == 0){
             return "No hay nadie"
         }
-        let listado = `${this.getStartTime(ctx)} \n`
+        let listado = (this.getStartTime() === undefined ? "No hay hora \n" : `${this.getStartTime()} \n`)
         listado += "Listado activos: \n"
-        listado += `${printList(ctx,"activos")} \n`
+        listado += `${this._printList("activos")} \n`
         if (this.listaSesiones[this.idSession]["suplentes"].length > 0){
             listado += "Listado suplentes: \n"
-            listado += `${printList(ctx,"suplentes")} \n`
+            listado += `${this._printList("suplentes")} \n`
         }
         return listado
     }
