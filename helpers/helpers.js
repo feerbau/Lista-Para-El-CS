@@ -43,8 +43,6 @@ async function alert5MinutesBeforeStart(bot,ctx){
         // Queda tiempo para que lleguemos a que falten 5 minutos
         await sleep(minutosEspera)
         return ctx.reply("En 5 arranca")
-        //return ctx.reply(`En ${diffMinutes(horaJuego, new Date())} arranca la partida. Vayan activando perris`)
-
     }
     // Ya falta menos de 5 minutos
     let tiempoFaltante = Math.round(diffMinutes(horaJuego, new Date()))

@@ -32,7 +32,7 @@ bot_listas.command('salir', (ctx) => {
 })
 
 bot_listas.command(['lista','listita'], (ctx)=>{
-    let usersList = bot.printAll(ctx)
+    let usersList = bot.printAll()
     ctx.reply(usersList)
 })
 
