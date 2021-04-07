@@ -34,6 +34,7 @@ bot_listas.command('salir', (ctx) => {
 bot_listas.command(['lista','listita'], (ctx)=>{
     let usersList = bot.printAll()
     ctx.reply(usersList)
+
 })
 
 bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
@@ -51,7 +52,6 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 bot_listas.command('hora',(ctx)=>{
     let horaJuego = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     bot.timePlay(horaJuego,ctx)
-
 })
 
 bot_listas.hears(['cs','csgo'],ctx =>{
