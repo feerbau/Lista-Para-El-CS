@@ -17,7 +17,7 @@ bot_listas.start((ctx) => {
 })
 
 bot_listas.command('toy', (ctx) => {
-    let feedback = bot.addUser(ctx.from.first_name,ctx)
+    let feedback = bot.addUser(ctx.from.username,ctx)
     bot.printAll()
     return ctx.reply(feedback)
 })
@@ -27,7 +27,7 @@ bot_listas.command('limpiar', (ctx) =>{
 })
 
 bot_listas.command('salir', (ctx) => {
-    let feedback = bot.removeUser(ctx.from.first_name)
+    let feedback = bot.removeUser(ctx.from.username)
     ctx.reply(feedback)
 })
 

@@ -99,12 +99,18 @@ class BotChatSession {
         /*
             Set the start time to play and start a promise that alert 5 minutes before game the start of it. 
         */
-        if(this.setStartTime(hora) === null){
+        
+        if(hora && this.setStartTime(hora) === null){
             return ctx.reply("El formato de hora debe ser HH:MM capo, qué flasheas?")
         }
-        ctx.reply(`Se juega a las ${this.getStartTime()}`)
+        let hora_juego = this.getStartTime();
+
+        if (hora_juego)
+            helpers.alert5MinutesBeforeStart(this,ctx)
+            
+        ctx.reply(hora_juego ? 'Se juega a las '+hora_juego : 'No hay hora seteada');
         // Aca ya me asegure que la hora no es undefined y que el formato es valido
-        helpers.alert5MinutesBeforeStart(this,ctx)
+        
     }
 }
 
