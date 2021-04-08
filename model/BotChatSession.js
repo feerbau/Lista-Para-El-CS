@@ -108,7 +108,7 @@ class BotChatSession {
         if (horaJuego)
             helpers.alert5MinutesBeforeStart(this,ctx)
             
-        ctx.reply(horaJuego ? `Se juega a las ${horaJuego}` : 'No hay hora seteada');
+        //ctx.reply(horaJuego ? `Se juega a las ${horaJuego}` : 'No hay hora seteada');
         // Aca ya me asegure que la hora no es undefined y que el formato es valido
         
     }
