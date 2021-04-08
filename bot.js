@@ -12,9 +12,6 @@ let bot
 
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
-    let date = new Date()
-    date.setHours(date.getHours() - 3)
-    console.log(date)
     bot = new BotChatSession(ctx.chat.id)
 })
 
