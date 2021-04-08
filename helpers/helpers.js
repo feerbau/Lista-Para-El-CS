@@ -1,4 +1,4 @@
-const diffMinutes = (dt2, dt1) => {
+const diffMinutes = (dt2, dt1,ctx) => {
     ctx.reply("diffMinutes")
     ctx.reply("Hora a Esperar " + dt2)
     ctx.reply("Hora actual " + dt1)
@@ -43,7 +43,7 @@ async function alert5MinutesBeforeStart(bot,ctx){
     ctx.reply("Hora Juego "+ bot.getStartTime())
     const horaAEsperar = getTimeWait(horaJuego)
     ctx.reply("Hora espera " + horaAEsperar)
-    const minutosEspera = diffMinutes(horaAEsperar, new Date())
+    const minutosEspera = diffMinutes(horaAEsperar, new Date(),ctx)
     ctx.reply("Llegue hasta antes del if minutosEpsera >= 0 " + minutosEspera)
     if(minutosEspera >= 0 ){
         // Queda tiempo para que lleguemos a que falten 5 minutos
@@ -51,7 +51,7 @@ async function alert5MinutesBeforeStart(bot,ctx){
         return ctx.reply("En 5 arranca")
     }
     // Ya falta menos de 5 minutos
-    let tiempoFaltante = Math.round(diffMinutes(horaJuego, new Date()))
+    let tiempoFaltante = Math.round(diffMinutes(horaJuego, new Date(),ctx))
     if(tiempoFaltante > 0){
         // Todavia falta, pero faltan menos de 5 minutos
         return ctx.reply(`En ${tiempoFaltante} arranca la partida. Vayan activando perris`)
