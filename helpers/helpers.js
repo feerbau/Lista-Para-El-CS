@@ -40,8 +40,8 @@ async function alert5MinutesBeforeStart(bot,ctx){
     const horaJuego = getTimeToPlay(bot.getStartTime(),ctx)
     const horaAEsperar = getTimeWait(horaJuego)
     let fechaActual = new Date()
-    date.setHours(date.getHours() - 3)
-    console.log(date)
+    fechaActual.setHours(fechaActual.getHours() - 3)
+    console.log(fechaActual)
     const minutosEspera = diffMinutes(horaAEsperar, fechaActual ,ctx)
     if(minutosEspera >= 0 ){
         // Queda tiempo para que lleguemos a que falten 5 minutos
