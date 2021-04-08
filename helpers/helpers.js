@@ -1,4 +1,7 @@
 const diffMinutes = (dt2, dt1) => {
+    ctx.reply("diffMinutes")
+    ctx.reply("Hora a Esperar " + dt2)
+    ctx.reply("Hora actual " + dt1)
     console.log("Actual " + dt1)
     let diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= 60;
