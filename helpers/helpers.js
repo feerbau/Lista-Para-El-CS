@@ -9,15 +9,17 @@ const diffMinutes = (dt2, dt1,ctx) => {
     return diff
 }
 
-function getTimeToPlay(horaAJugar){
+function getTimeToPlay(horaAJugar,ctx){
     // Parse horaAJugar into a Date object
     let horarioSplitteado = horaAJugar.split(":")
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
     let fechaJuego = new Date()
+    ctx.reply("Fecha juego antes " + fechaJuego + " " + horaJuego + " " + minutosJuego)
     fechaJuego.setHours(horaJuego)
     fechaJuego.setMinutes(minutosJuego)
     fechaJuego.setSeconds(0)
+    ctx.reply("Fecha Juego Despues " + sfechaJuego)
     return fechaJuego
 }
 
@@ -39,7 +41,7 @@ async function sleep(time){
 }
 
 async function alert5MinutesBeforeStart(bot,ctx){
-    const horaJuego = getTimeToPlay(bot.getStartTime())
+    const horaJuego = getTimeToPlay(bot.getStartTime(),ctx)
     ctx.reply("Hora Juego "+ bot.getStartTime())
     const horaAEsperar = getTimeWait(horaJuego)
     ctx.reply("Hora espera " + horaAEsperar)
