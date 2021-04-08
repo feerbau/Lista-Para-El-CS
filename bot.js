@@ -53,7 +53,7 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 
 bot_listas.command('hora',(ctx)=>{
     let horaJuego = ctx.message.text.split(" ")[1] // At first position is located hour parameter
-    if(horaJuego.trim() == ""){
+    if(horaJuego === undefined){
         let horaAJugar = bot.getStartTime()
         return ctx.reply(horaAJugar ? `Se juega a las ${horaAJugar}` : "No hay hora seteada")
     }
