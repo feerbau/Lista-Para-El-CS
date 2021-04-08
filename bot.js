@@ -12,6 +12,7 @@ let bot
 
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
+    console.log(new Date())
     bot = new BotChatSession(ctx.chat.id)
 })
 
