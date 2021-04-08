@@ -12,7 +12,8 @@ let bot
 
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
-    console.log(new Date())
+    let date = new Date()
+    date.setHours(date.getHours() - 3)
     bot = new BotChatSession(ctx.chat.id)
 })
 
@@ -51,6 +52,10 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
 
 bot_listas.command('hora',(ctx)=>{
     let horaJuego = ctx.message.text.split(" ")[1] // At first position is located hour parameter
+    if(horaJuego.trim() == ""){
+        let horaAJugar = bot.getStartTime()
+        return ctx.reply(horaAJugar ? `Se juega a las ${horaAJugar}` : "No hay hora seteada")
+    }
     bot.timePlay(horaJuego,ctx)
 })
 
