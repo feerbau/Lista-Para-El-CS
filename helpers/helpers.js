@@ -37,7 +37,9 @@ async function sleep(time){
 
 async function alert5MinutesBeforeStart(bot,ctx){
     const horaJuego = getTimeToPlay(bot.getStartTime())
+    ctx.reply("Hora Juego "+ bot.getStartTime())
     const horaAEsperar = getTimeWait(horaJuego)
+    ctx.reply("Hora espera " + horaAEsperar)
     const minutosEspera = diffMinutes(horaAEsperar, new Date())
     ctx.reply("Llegue hasta antes del if minutosEpsera >= 0 " + minutosEspera)
     if(minutosEspera >= 0 ){
