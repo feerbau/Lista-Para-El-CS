@@ -15,11 +15,11 @@ function getTimeToPlay(horaAJugar,ctx){
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
     let fechaJuego = new Date()
-    ctx.reply("Fecha juego antes " + fechaJuego + " " + horaJuego + " " + minutosJuego)
+    ctx.reply("Fecha juego antes: " + fechaJuego + " Hora: " + horaJuego + " Minutos: " + minutosJuego)
     fechaJuego.setHours(horaJuego)
     fechaJuego.setMinutes(minutosJuego)
     fechaJuego.setSeconds(0)
-    ctx.reply("Fecha Juego Despues " + sfechaJuego)
+    ctx.reply("Fecha Juego Despues: " + fechaJuego)
     return fechaJuego
 }
 
