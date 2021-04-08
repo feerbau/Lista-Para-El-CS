@@ -1,4 +1,4 @@
-const diffMinutes = (dt2, dt1,ctx) => {
+const diffMinutes = (dt2, dt1) => {
     let diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= 60;
     //return Math.abs(diff)
@@ -6,7 +6,7 @@ const diffMinutes = (dt2, dt1,ctx) => {
 }
 
 function getTimeToPlay(horaAJugar,ctx){
-    // Parse horaAJugar into a Date object
+    // Parsea horaAJugar en un Date object
     let horarioSplitteado = horaAJugar.split(":")
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
@@ -38,17 +38,15 @@ async function alert5MinutesBeforeStart(bot,ctx){
     const horaJuego = getTimeToPlay(bot.getStartTime(),ctx)
     const horaAEsperar = getTimeWait(horaJuego)
     let fechaActual = new Date()
-    fechaActual.setHours(fechaActual.getHours() - 3)
-    console.log(fechaActual + " / " + horaAEsperar)
-    const minutosEspera = diffMinutes(horaAEsperar, fechaActual ,ctx)
-    console.log(minutosEspera)
+    fechaActual.setHours(fechaActual.getHours() - 3) // Se resta 3 por la diferencia de 3 horas con la que detecta heroku
+    const minutosEspera = diffMinutes(horaAEsperar, fechaActual)
     if(minutosEspera >= 0 ){
         // Queda tiempo para que lleguemos a que falten 5 minutos
         await sleep(minutosEspera)
         return ctx.reply("En 5 arranca")
     }
     // Ya falta menos de 5 minutos
-    let tiempoFaltante = Math.round(diffMinutes(horaJuego, fechaActual,ctx))
+    let tiempoFaltante = Math.round(diffMinutes(horaJuego, fechaActual))
     if(tiempoFaltante > 0){
         // Todavia falta, pero faltan menos de 5 minutos
         return ctx.reply(`En ${tiempoFaltante} arranca la partida. Vayan activando perris`)
