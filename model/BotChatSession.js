@@ -102,7 +102,7 @@ class BotChatSession {
         if(this.setStartTime(hora) === null){
             return ctx.reply("El formato de hora debe ser HH:MM capo, qué flasheas?")
         }
-        ctx.reply(`Se juega a las ${hora}`)
+        ctx.reply(`Se juega a las ${this.getStartTime()}`)
         // Aca ya me asegure que la hora no es undefined y que el formato es valido
         helpers.alert5MinutesBeforeStart(this,ctx)
     }
