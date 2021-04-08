@@ -10,12 +10,10 @@ function getTimeToPlay(horaAJugar,ctx){
     let horarioSplitteado = horaAJugar.split(":")
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
-    let fechaJuego = new Date(new Date().toLocaleString("es-AR"),  { timeZone: "UTC" })
-    ctx.reply("Fecha juego antes: " + fechaJuego + " Hora: " + horaJuego + " Minutos: " + minutosJuego)
+    let fechaJuego = new Date()
     fechaJuego.setHours(horaJuego)
     fechaJuego.setMinutes(minutosJuego)
     fechaJuego.setSeconds(0)
-    ctx.reply("Fecha Juego Despues: " + fechaJuego)
     return fechaJuego
 }
 
