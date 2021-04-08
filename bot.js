@@ -22,8 +22,7 @@ bot_listas.command('toy', (ctx) => {
 })
 
 bot_listas.command('limpiar', (ctx) =>{
-    let feedback = bot.cleanSession()
-    ctx.reply(feedback)
+    ctx.reply("Fuera de seerivicio. Porfavor, intente mas tarde. Bue flasheaba contestadora")
 })
 
 bot_listas.command('salir', (ctx) => {
