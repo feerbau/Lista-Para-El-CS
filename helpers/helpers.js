@@ -14,7 +14,7 @@ function getTimeToPlay(horaAJugar,ctx){
     let horarioSplitteado = horaAJugar.split(":")
     let horaJuego = parseInt(horarioSplitteado[0]) 
     let minutosJuego = parseInt(horarioSplitteado[1]) 
-    let fechaJuego = new Date()
+    let fechaJuego = new Date(new Date().toLocaleString("es-AR"))
     ctx.reply("Fecha juego antes: " + fechaJuego + " Hora: " + horaJuego + " Minutos: " + minutosJuego)
     fechaJuego.setHours(horaJuego)
     fechaJuego.setMinutes(minutosJuego)
@@ -45,7 +45,7 @@ async function alert5MinutesBeforeStart(bot,ctx){
     ctx.reply("Hora Juego "+ bot.getStartTime())
     const horaAEsperar = getTimeWait(horaJuego)
     ctx.reply("Hora espera " + horaAEsperar)
-    const minutosEspera = diffMinutes(horaAEsperar, new Date(),ctx)
+    const minutosEspera = diffMinutes(horaAEsperar, new Date(new Date().toLocaleString("es-AR")),ctx)
     ctx.reply("Llegue hasta antes del if minutosEpsera >= 0 " + minutosEspera)
     if(minutosEspera >= 0 ){
         // Queda tiempo para que lleguemos a que falten 5 minutos
