@@ -48,7 +48,7 @@ async function alert5MinutesBeforeStart(bot,ctx){
         return ctx.reply("En 5 arranca")
     }
     // Ya falta menos de 5 minutos
-    let tiempoFaltante = Math.round(diffMinutes(horaJuego, new Date(),ctx))
+    let tiempoFaltante = Math.round(diffMinutes(horaJuego, fechaActual,ctx))
     if(tiempoFaltante > 0){
         // Todavia falta, pero faltan menos de 5 minutos
         return ctx.reply(`En ${tiempoFaltante} arranca la partida. Vayan activando perris`)
