@@ -16,6 +16,7 @@ bot_listas.start((ctx) => {
 })
 
 bot_listas.command('toy', (ctx) => {
+    let name = ctx.from.username ? ctx.from.username : ctx.from.first_name
     let feedback = bot.addUser(ctx.from.username,ctx)
     bot.printAll()
     return ctx.reply(feedback)
