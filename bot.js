@@ -50,6 +50,7 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
     let ayuda = '- Comandos - \n'+
     '/start - Inicia el Bot \n' + 
     '/toy - Entras en la lista \n'+ 
+    '/agregar [@user] - Agregar a un usuario'
     '/salir - Salis de la lista \n'+
     '/lista - Muestra la lista \n' +
     '/limpiar - Limpia la lista \n'+
