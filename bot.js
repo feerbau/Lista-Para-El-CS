@@ -27,12 +27,12 @@ bot_listas.command('agregar', (ctx) => {
 bot_listas.command('toy', (ctx) => {
     let player = ctx.from.username ? ctx.from.username : ctx.from.first_name
     let feedback = bot.addUser(player,ctx)
-    bot.printAll()
+    //bot.printAll()
     return ctx.reply(feedback)
 })
 
 bot_listas.command('limpiar', (ctx) =>{
-    ctx.reply("Fuera de seerivicio. Porfavor, intente mas tarde. Bue flasheaba contestadora")
+    ctx.reply("Fuera de servicio. Porfavor, intente mas tarde. Bue flasheaba contestadora")
 })
 
 bot_listas.command('salir', (ctx) => {
