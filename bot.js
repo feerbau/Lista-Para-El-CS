@@ -88,7 +88,7 @@ bot_listas.command('hora',(ctx)=>{
     bot.timePlay(horaJuego,ctx)
 })
 
-bot_listas.hears(['cs','csgo'],ctx =>{
+bot_listas.hears(['cs','csgo'], (ctx) =>{
     ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
 })
 
