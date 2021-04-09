@@ -37,7 +37,7 @@ bot_listas.command('agregar', (ctx) => {
 })
 
 bot_listas.command('sacar', (ctx) => {
-    let deletedPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
+    let deletedPlayer = ctx.message.text.split("@")[1] // At first position is located hour parameter
     if (deletedPlayer != undefined){
         let feedback = bot.removeUser(deletedPlayer)
         return ctx.reply(feedback)
