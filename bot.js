@@ -40,7 +40,7 @@ bot_listas.command('sacar', (ctx) => {
     let deletedPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     if (deletedPlayer != undefined){
         let feedback = bot.removeUser(deletedPlayer)
-        ctx.reply(feedback)
+        return ctx.reply(feedback)
     }
     //Si estas aca te mandaron '/agregar ', es decir, con un vacio.
     return ctx.reply("Emmm... pero deci a quien queres sacar pá")
