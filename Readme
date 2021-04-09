@@ -1,9 +1,12 @@
 Bot de Telegram para hacer las listas para jugar mas rapidas.
 
-
 - Comandos - 
-/toy - Entras en la lista 
+/start - Inicia el Bot
+/toy - Entras en la lista
 /salir - Salis de la lista
+/agregar [@user] - Agregar a un usuario de la lista
+/sacar [@user] - Sacar a un usuario de la lista
 /lista - Muestra la lista
 /limpiar - Limpia la lista
-/start - Inicia el Bot
+/hora [string]- Devuelve/establece un horario
+/ayuda - Ayuda para uso del bot

@@ -51,7 +51,8 @@ bot_listas.command('sacar', (ctx) => {
 
 
 bot_listas.command('limpiar', (ctx) =>{
-    ctx.reply("Fuera de servicio. Por favor, intente mas tarde... bue flasheaba contestadora")
+    let feedback = bot.cleanSession()
+    ctx.reply(feedback)
 })
 
 bot_listas.command('salir', (ctx) => {
