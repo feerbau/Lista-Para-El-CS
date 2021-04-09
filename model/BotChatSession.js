@@ -62,6 +62,9 @@ class BotChatSession {
         /* 
             Add a user to play. If a list is full, push him into sustitutes list
         */
+       if (userName === undefined){
+           return "Hubo un error al querer agregar a la lista, parece que el nombre de usuario que llego no está definido..."
+       }
         if (!this.listaSesiones[this.idSession]["activos"].includes(userName)){    
             if (this.listaSesiones[this.idSession]["activos"].length >= 5){
                 this.listaSesiones[this.idSession]["suplentes"].push(userName)
