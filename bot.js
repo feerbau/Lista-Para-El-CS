@@ -89,7 +89,7 @@ bot_listas.command('hora',(ctx)=>{
 })
 
 bot_listas.hears(['cs','csgo'], (ctx) =>{
-    ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
+    return ctx.reply('AAAAH PICARON, nombraste la palabra mágica. Sale ese?')
 })
 
 bot_listas.launch({
