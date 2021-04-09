@@ -18,7 +18,7 @@ bot_listas.start((ctx) => {
 bot_listas.command('toy', (ctx) => {
     let aditionalPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     if (aditionalPlayer != undefined){
-        ctx.reply(aditionalPlayer)
+        ctx.reply(typeof(aditionalPlayer))
     }
     let player = ctx.from.username ? ctx.from.username : ctx.from.first_name
     let feedback = bot.addUser(player,ctx)
