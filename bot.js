@@ -1,4 +1,7 @@
+
+
 require('dotenv').config() // Import .env variables
+
 
 const { Telegraf } = require('telegraf')
 const { BotChatSession } = require('./model/BotChatSession.js')
@@ -15,14 +18,6 @@ bot_listas.start((ctx) => {
     bot = new BotChatSession(ctx.chat.id)
 })
 
-bot_listas.command('agregar', (ctx) => {
-    let aditionalPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
-    if (aditionalPlayer != undefined){
-        let player = (aditionalPlayer.split("@")[1])
-        return ctx.reply(bot.addUser(player,ctx))
-    }
-    return ctx.reply("Emmm... pero deci a quien queres agregar pá")
-})
 
 bot_listas.command('toy', (ctx) => {
     let player = ctx.from.username ? ctx.from.username : ctx.from.first_name
@@ -31,8 +26,29 @@ bot_listas.command('toy', (ctx) => {
     return ctx.reply(feedback)
 })
 
+bot_listas.command('agregar', (ctx) => {
+    let aditionalPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
+    if (aditionalPlayer != undefined){
+        let player = (aditionalPlayer.split("@")[1])
+        return ctx.reply(bot.addUser(player,ctx))
+    }
+    //Si estas aca te mandaron '/agregar ', es decir, con un vacio.
+    return ctx.reply("Emmm... pero deci a quien queres agregar pá")
+})
+
+bot_listas.command('sacar', (ctx) => {
+    let deletedPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
+    if (deletedPlayer != undefined){
+        let feedback = bot.removeUser(deletedPlayer)
+        ctx.reply(feedback)
+    }
+    //Si estas aca te mandaron '/agregar ', es decir, con un vacio.
+    return ctx.reply("Emmm... pero deci a quien queres sacar pá")
+})
+
+
 bot_listas.command('limpiar', (ctx) =>{
-    ctx.reply("Fuera de servicio. Porfavor, intente mas tarde. Bue flasheaba contestadora")
+    ctx.reply("Fuera de servicio. Por favor, intente mas tarde... bue flasheaba contestadora")
 })
 
 bot_listas.command('salir', (ctx) => {
@@ -50,8 +66,9 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
     let ayuda = '- Comandos - \n'+
     '/start - Inicia el Bot \n' + 
     '/toy - Entras en la lista \n'+ 
-    '/agregar [@user] - Agregar a un usuario'+
     '/salir - Salis de la lista \n'+
+    '/agregar [@user] - Agregar a un usuario de la lista'+
+    '/sacar [@user] - Sacar a un usuario de la lista'+
     '/lista - Muestra la lista \n' +
     '/limpiar - Limpia la lista \n'+
     '/hora [string]- Devuelve/establece un horario \n'+
