@@ -30,6 +30,9 @@ bot_listas.command('agregar', (ctx) => {
     let aditionalPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     if (aditionalPlayer != undefined){
         let player = (aditionalPlayer.split("@")[1])
+         if(player.trim() == ""){
+            return ctx.reply("Capo, no pongas @ y despues vacio")   
+        }
         return ctx.reply(bot.addUser(player,ctx))
     }
     //Si estas aca te mandaron '/agregar ', es decir, con un vacio.
