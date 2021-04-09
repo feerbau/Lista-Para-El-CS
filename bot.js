@@ -15,11 +15,16 @@ bot_listas.start((ctx) => {
     bot = new BotChatSession(ctx.chat.id)
 })
 
-bot_listas.command('toy', (ctx) => {
+bot_listas.command('agregar', (ctx) => {
     let aditionalPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     if (aditionalPlayer != undefined){
-        ctx.reply(typeof(aditionalPlayer))
+        let player = (aditionalPlayer.split("@")[1])
+        return ctx.reply(bot.addUser(player,ctx))
     }
+    return ctx.reply("Emmm... pero deci a quien queres agregar pá")
+})
+
+bot_listas.command('toy', (ctx) => {
     let player = ctx.from.username ? ctx.from.username : ctx.from.first_name
     let feedback = bot.addUser(player,ctx)
     bot.printAll()
