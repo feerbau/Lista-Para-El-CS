@@ -70,8 +70,8 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
     '/start - Inicia el Bot \n' + 
     '/toy - Entras en la lista \n'+ 
     '/salir - Salis de la lista \n'+
-    '/agregar [@user] - Agregar a un usuario de la lista'+
-    '/sacar [@user] - Sacar a un usuario de la lista'+
+    '/agregar [@user] - Agregar a un usuario de la lista\n'+
+    '/sacar [@user] - Sacar a un usuario de la lista\n'+
     '/lista - Muestra la lista \n' +
     '/limpiar - Limpia la lista \n'+
     '/hora [string]- Devuelve/establece un horario \n'+
