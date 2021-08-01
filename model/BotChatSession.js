@@ -50,7 +50,7 @@ class BotChatSession {
         /* 
             Print all the list of all types of players 
         */
-        if (this.listaSesiones[this.idSession]["activos"].length == 0){
+        if ((this.listaSesiones[this.idSession]["activos"].length == 0) && (this.listaSesiones[this.idSession]["suplentes"].length == 0)){
             return "No hay nadie"
         }
         let listado = (this.getStartTime() === undefined ? "No hay hora \n" : `${this.getStartTime()} \n`)
@@ -75,7 +75,10 @@ class BotChatSession {
        if (userName === undefined){
            return 'Hubo un error al querer agregar a la lista, parece que el nombre de usuario que llego no está definido. Fijate usando el "@" '
        }
-        if (!this.listaSesiones[this.idSession]["activos"].includes(userName)){    
+        if (!this.listaSesiones[this.idSession]["activos"].includes(userName)){
+            if (this.listaSesiones[this.idSession]["suplentes"].includes(userName)){
+                this.listaSesiones[this.idSession]["suplentes"].shift()
+            }    
             if (this.listaSesiones[this.idSession]["activos"].length >= 5){
                 this.listaSesiones[this.idSession]["suplentes"].push(userName)
                 return "Ya esta llena la lista, dormiste. Entras como suplente"
@@ -93,7 +96,10 @@ class BotChatSession {
        if (userName === undefined){
            return 'Hubo un error al querer agregar a la lista, parece que el nombre de usuario que llego no está definido. Fijate usando el "@" '
        }
-        if (!this.listaSesiones[this.idSession]["suplentes"].includes(userName)){    
+        if (!this.listaSesiones[this.idSession]["suplentes"].includes(userName)){   
+            if (this.listaSesiones[this.idSession]["activos"].includes(userName)){
+                this.listaSesiones[this.idSession]["activos"].shift()
+            }
             this.listaSesiones[this.idSession]["suplentes"].push(userName)
             return `Adentro ${userName} como suplente`            
         }

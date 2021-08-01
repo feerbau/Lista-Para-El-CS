@@ -26,7 +26,7 @@ bot_listas.command('toy', (ctx) => {
     return ctx.reply(feedback)
 })
 
-bot_listas.command('soySuplente', (ctx) => {
+bot_listas.command(['soySuplente','soysuplente','toySuplente','toysuplente'], (ctx) => {
     let player = ctx.from.username ? ctx.from.username : ctx.from.first_name
     let feedback = bot.addSustitute(player,ctx)
     //bot.printAll()
@@ -77,6 +77,7 @@ bot_listas.command(['ayuda','help','comandos'],(ctx)=>{
     let ayuda = '- Comandos - \n'+
     '/start - Inicia el Bot \n' + 
     '/toy - Entras en la lista \n'+ 
+    '/toysuplente - Entras en la lista como suplente \n'+ 
     '/salir - Salis de la lista \n'+
     '/agregar [@user] - Agregar a un usuario de la lista\n'+
     '/sacar [@user] - Sacar a un usuario de la lista\n'+
