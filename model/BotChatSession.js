@@ -114,7 +114,7 @@ class BotChatSession {
         */
         
         if(hora && this.setStartTime(hora) === null){
-            return ctx.reply("El formato de hora debe ser HH:MM capo, qué flasheas?")
+            return ctx.reply("El formato de hora debe ser HH:MM capo, qué flasheas? O en su defecto pone un 'ya' ")
         }
         let horaJuego = this.getStartTime();
 
