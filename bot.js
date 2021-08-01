@@ -84,6 +84,9 @@ bot_listas.command('hora',(ctx)=>{
     let horaJuego = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     if(horaJuego === undefined){
         let horaAJugar = bot.getStartTime()
+        if (horaAJugar === "ya") {
+            return ctx.reply("Se juega yaaa papa dale entra (igual fijate si ya arrancaron estos giles)")
+        }
         return ctx.reply(horaAJugar ? `Se juega a las ${horaAJugar}` : "No hay hora seteada")
     }
     bot.timePlay(horaJuego,ctx)

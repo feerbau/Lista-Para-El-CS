@@ -52,7 +52,9 @@ async function alert5MinutesBeforeStart(bot,ctx){
         return ctx.reply(`En ${tiempoFaltante} arranca la partida. Vayan activando perris`)
     }
     // Ya deberia haber arrancado
-    return ctx.reply("Ya deberia haber arrancado")
+    else if (tiempoFaltante <= 0) {
+        return ctx.reply("Ya deberia haber arrancado")
+    }
 }
 
 module.exports = {
