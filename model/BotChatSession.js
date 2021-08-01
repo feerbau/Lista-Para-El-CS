@@ -15,9 +15,19 @@ class BotChatSession {
     }
 
     setStartTime(hora){
-        if(!helpers.validateHour(hora)) return null
-        this.listaSesiones[this.idSession]["hora_activos"] = hora
-        return hora
+        if(helpers.validateHour(hora)){
+            this.listaSesiones[this.idSession]["hora_activos"] = hora
+            return hora
+        }
+        else{
+            if (hora === "ya"){
+                this.listaSesiones[this.idSession]["hora_activos"] = hora
+                return hora
+            }
+            else {
+                return null
+            }
+        }
     }
 
     getStartTime(){
