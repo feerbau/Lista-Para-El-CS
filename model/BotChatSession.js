@@ -86,6 +86,20 @@ class BotChatSession {
         return "Ya estas en la lista pa."
     }
 
+    addSustitute(userName) {
+        /* 
+            Add a user as a sustitute.
+        */
+       if (userName === undefined){
+           return 'Hubo un error al querer agregar a la lista, parece que el nombre de usuario que llego no está definido. Fijate usando el "@" '
+       }
+        if (!this.listaSesiones[this.idSession]["suplentes"].includes(userName)){    
+            this.listaSesiones[this.idSession]["suplentes"].push(userName)
+            return `Adentro ${userName} como suplente`            
+        }
+        return "Ya estas en la lista pa."
+    }
+
     _getFirstSustitute(){
         return this.listaSesiones[this.idSession]["suplentes"].shift()
     }

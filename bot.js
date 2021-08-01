@@ -26,6 +26,13 @@ bot_listas.command('toy', (ctx) => {
     return ctx.reply(feedback)
 })
 
+bot_listas.command('soySuplente', (ctx) => {
+    let player = ctx.from.username ? ctx.from.username : ctx.from.first_name
+    let feedback = bot.addSustitute(player,ctx)
+    //bot.printAll()
+    return ctx.reply(feedback)
+})
+
 bot_listas.command('agregar', (ctx) => {
     let aditionalPlayer = ctx.message.text.split(" ")[1] // At first position is located hour parameter
     if (aditionalPlayer != undefined){
