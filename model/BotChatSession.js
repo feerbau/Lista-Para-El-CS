@@ -119,10 +119,15 @@ class BotChatSession {
             // checks user existence in active list, then removes him.
             this.listaSesiones[this.idSession]["activos"].splice(index, 1);
             if (this.listaSesiones[this.idSession]["suplentes"].length > 0){
-                // Add the first substitute to the active players list
-                this.listaSesiones[this.idSession]["activos"].push(this._getFirstSustitute(this.idSession))
+                // Add the first substitute to the active players list and notify him
+                var sustitute = this._getFirstSustitute(this.idSession)
+                this.listaSesiones[this.idSession]["activos"].push(sustitute)
+                return `Bue que gil, safas porque hay suplente nomás. @{${userName} mira que entraste en la lista...`
             }
-            return "Sos tremendo gil, chau."
+            else{
+                return "Sos tremendo gil, chau."
+            }
+            
         }
         // User is not in any list
         return "De donde queres salir vos, banana."
