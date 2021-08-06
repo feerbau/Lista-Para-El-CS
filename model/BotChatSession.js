@@ -122,7 +122,7 @@ class BotChatSession {
                 // Add the first substitute to the active players list and notify him
                 var sustitute = this._getFirstSustitute(this.idSession)
                 this.listaSesiones[this.idSession]["activos"].push(sustitute)
-                return `Bue que gil, safas porque hay suplente nomás. @{${userName} mira que entraste en la lista...`
+                return `Bue que gil, safas porque hay suplente nomás. @${sustitute} mira que entraste en la lista...`
             }
             else{
                 return "Sos tremendo gil, chau."
