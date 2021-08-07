@@ -17,10 +17,6 @@ class FirebaseRepository {
     console.log(db);
   }
 
-  mapToJSON(querySnapshot) {
-    querySnapshot.docs.map((doc) => console.log(doc));
-    return querySnapshot.docs.map((doc) => doc.data());
-  }
 
   async addHeadline(username) {
     const querySnapshot = await this.findByUsernameInCollection(username);
@@ -87,7 +83,7 @@ class FirebaseRepository {
   }
 
   async setTime(time) {
-    const querySnapshot = await this.getTime();
+    const querySnapshot = await this.getTimeSnapshot();
     if (querySnapshot != null) {
         querySnapshot.forEach(function (doc) {
         doc.ref.delete();
@@ -106,7 +102,7 @@ class FirebaseRepository {
       });
   }
 
-  async getTime() {
+  async getTimeSnapshot() {
     let querySnapshot = await db.collection("time").get();
     console.log(this.mapToJSON(querySnapshot))
     if (querySnapshot.empty) {
@@ -115,6 +111,54 @@ class FirebaseRepository {
     return querySnapshot;
   }
 
+
+  //Getters JSON
+
+  mapToJSON(querySnapshot) {
+    querySnapshot.docs.map((doc) => console.log(doc));
+    return querySnapshot.docs.map((doc) => doc.data());
+  }
+
+  async getEveryDocumentOf(collectionName){
+    let querySnapshot = await db
+    .collection(collectionName)
+    .get();
+    return querySnapshot
+  }
+
+  async getHeadlines(){
+    const querySnapshot = await this.getEveryDocumentOf("headlines");
+    let JSONBruto= this.mapToJSON(querySnapshot)
+    return JSONBruto.map((doc) => {
+        return doc['player']
+      });
+  }
+
+  async getSustitutes(){
+    const querySnapshot = await this.getEveryDocumentOf("sustitutes");
+    let JSONBruto= this.mapToJSON(querySnapshot)
+    return JSONBruto.map((doc) => {
+        return doc['player']
+      });
+  }
+
+  async getHeadlines(){
+    const querySnapshot = await this.getEveryDocumentOf("headlines");
+    let JSONBruto= this.mapToJSON(querySnapshot)
+    return JSONBruto.map((doc) => {
+        return doc['player']
+      });
+  }
+  
+  async getTime(){
+    const querySnapshot = await this.getEveryDocumentOf("time");
+    let JSONBruto= this.mapToJSON(querySnapshot)
+    return JSONBruto.map((doc) => {
+        return doc['hour']
+      });
+  }
+
+
 }
 let app = firebase.initializeApp(firebaseConfig);
 let db = firebase.firestore(app);
@@ -122,11 +166,12 @@ let db = firebase.firestore(app);
 async function test() {
   const fbase = new FirebaseRepository(db);
   //fbase.setTime("14:30")
-  //fbase.addHeadline("nacho");
+  //fbase.addHeadline("fer");
   //fbase.removeHeadline("nacho");
   //fbase.addSustitute("nacho");
   //fbase.removeSustitute("nacho");
   //fbase.mapToJSON(querySnapshot)
+  //fbase.getHeadlines()
 }
 
 test();

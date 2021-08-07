@@ -1,4 +1,6 @@
 const helpers = require("../helpers/helpers.js");
+const db = require("../model/FirebaseRepository.js");
+
 
 class BotChatSession {
     constructor(idSession){
@@ -7,11 +9,12 @@ class BotChatSession {
         this._initialize()
     }
 
-    _initialize(){
+    async _initialize(){
         this.listaSesiones[this.idSession] = {}
-        this.listaSesiones[this.idSession]["activos"] = []
-        this.listaSesiones[this.idSession]["suplentes"] = []
-        this.listaSesiones[this.idSession]["hora_activos"] = undefined
+        this.listaSesiones[this.idSession]["activos"] = await db.getHeadlines();
+        this.listaSesiones[this.idSession]["suplentes"] = await db.getSustitutes();
+        let time = await db.getTime();
+        this.listaSesiones[this.idSession]["hora_activos"] = time ? time : undefined
     }
 
     setStartTime(hora){
