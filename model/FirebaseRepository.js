@@ -176,17 +176,3 @@ class FirebaseRepository {
 let app = firebase.initializeApp(firebaseConfig);
 let db = firebase.firestore(app);
 
-async function test() {
-  const fbase = new FirebaseRepository(db);
-  await fbase.addHeadline("marce")
-  console.log(await fbase.getHeadlines())
-  //fbase.setTime("14:30")
-  //fbase.addHeadline("fer");
-  //fbase.removeHeadline("nacho");
-  //fbase.addSustitute("nacho");
-  //fbase.removeSustitute("nacho");
-  //fbase.mapToJSON(querySnapshot)
-  //fbase.getHeadlines()
-}
-
-test();
