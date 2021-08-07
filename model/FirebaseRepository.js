@@ -1,12 +1,8 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import firebase from "firebase/app";
+let firebase = require ("firebase/app");
 // If you are using v7 or any earlier version of the JS SDK, you should import firebase using namespace import
 // import * as firebase from "firebase/app"
 
-import "firebase/firestore";
-
-
-// Your web app's Firebase configuration
 
 let firebaseConfig = {
   apiKey: "AIzaSyAvAxlmNhpWrcImbJZ1Ezr0UKXfvTPGvns",
