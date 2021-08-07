@@ -83,12 +83,7 @@ class FirebaseRepository {
   }
 
   async setTime(time) {
-    const querySnapshot = await this.getTimeSnapshot();
-    if (querySnapshot != null) {
-        querySnapshot.forEach(function (doc) {
-        doc.ref.delete();
-      });
-    }
+    deleteEveryDocumentOf("time")
     this.db
       .collection("time")
       .add({
@@ -102,6 +97,7 @@ class FirebaseRepository {
       });
   }
 
+  /*
   async getTimeSnapshot() {
     let querySnapshot = await db.collection("time").get();
     console.log(this.mapToJSON(querySnapshot))
@@ -109,7 +105,7 @@ class FirebaseRepository {
       return null;
     }
     return querySnapshot;
-  }
+  }*/
 
 
   //Getters JSON
@@ -159,12 +155,31 @@ class FirebaseRepository {
   }
 
 
+  //Deletes
+
+  async deleteEveryDocumentOf(collectionName){
+    const querySnapshot = await this.getEveryDocumentOf(collectionName);
+    querySnapshot.forEach(function (doc) {
+      doc.ref.delete();
+    });
+  }
+
+  async cleanFirebase(){
+    //TODO limpiar la coleccion Sustitutes, Headlines, Time
+    deleteEveryDocumentOf("time")
+    deleteEveryDocumentOf("sustitutes")
+    deleteEveryDocumentOf("headlines")
+  }
+
 }
+
 let app = firebase.initializeApp(firebaseConfig);
 let db = firebase.firestore(app);
 
 async function test() {
   const fbase = new FirebaseRepository(db);
+  await fbase.addHeadline("marce")
+  console.log(await fbase.getHeadlines())
   //fbase.setTime("14:30")
   //fbase.addHeadline("fer");
   //fbase.removeHeadline("nacho");

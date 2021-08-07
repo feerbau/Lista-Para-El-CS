@@ -10,11 +10,12 @@ class BotChatSession {
     }
 
     async _initialize(){
+        // Sirve solo cuando se restartea, pero despues si se está cambiando hay que volver a pedirle todo a la bd
         this.listaSesiones[this.idSession] = {}
         this.listaSesiones[this.idSession]["activos"] = await db.getHeadlines();
         this.listaSesiones[this.idSession]["suplentes"] = await db.getSustitutes();
         let time = await db.getTime();
-        this.listaSesiones[this.idSession]["hora_activos"] = time ? time : undefined
+        this.listaSesiones[this.idSession]["hora_activos"] = time.length === 0 ? undefined : time[0]
     }
 
     setStartTime(hora){
@@ -80,10 +81,10 @@ class BotChatSession {
        }
         if (!this.listaSesiones[this.idSession]["activos"].includes(userName)){
             if (this.listaSesiones[this.idSession]["suplentes"].includes(userName)){
-                this.listaSesiones[this.idSession]["suplentes"].shift()
+                this.listaSesiones[this.idSession]["suplentes"].shift() // Esto se cambia por una consulta a la BD
             }    
             if (this.listaSesiones[this.idSession]["activos"].length >= 5){
-                this.listaSesiones[this.idSession]["suplentes"].push(userName)
+                this.listaSesiones[this.idSession]["suplentes"].push(userName) // Esto se cambia por un agregar a la BD
                 return "Ya esta llena la lista, dormiste. Entras como suplente"
             }
             this.listaSesiones[this.idSession]["activos"].push(userName)
