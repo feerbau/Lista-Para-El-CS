@@ -16,6 +16,7 @@ let bot
 bot_listas.start((ctx) => {
     ctx.reply('PASAME TU LISTITA PA');
     bot = new BotChatSession(ctx.chat.id)
+    return ctx.reply(`El id del chat es  ${ctx.chat.id}`)
 })
 
 
