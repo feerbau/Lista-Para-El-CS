@@ -87,7 +87,6 @@ class BotChatSession {
            return 'Hubo un error al querer agregar a la lista, parece que el nombre de usuario que llego no está definido. Fijate usando el "@" '
        }
         if (!this.listaSesiones[this.idSession]["activos"].includes(userName)){
-            let msgNF= this.checkNachoOrFer(userName)  
             
             if (this.listaSesiones[this.idSession]["suplentes"].includes(userName)){
                 this.listaSesiones[this.idSession]["suplentes"].shift()
@@ -99,6 +98,7 @@ class BotChatSession {
             }
 
             this.listaSesiones[this.idSession]["activos"].push(userName)
+            let msgNF= this.checkNachoOrFer(userName)
             return msgNF? msgNF: `Adentro ${userName}`   
         }
         return "Ya estas en la lista pa."
