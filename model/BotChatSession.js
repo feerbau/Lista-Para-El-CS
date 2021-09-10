@@ -139,7 +139,7 @@ class BotChatSession {
         if (index > -1) {
             // checks user existence in active list, then removes him.
             this.listaSesiones[this.idSession]["activos"].splice(index, 1);
-            msgNF= this.addNachoByFer(userName)
+            let msgNF= this.addNachoByFer(userName)
             if (this.listaSesiones[this.idSession]["suplentes"].length > 0){
                 // Add the first substitute to the active players list and notify him
                 var sustitute = this._getFirstSustitute(this.idSession)
