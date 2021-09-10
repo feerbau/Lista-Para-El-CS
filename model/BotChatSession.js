@@ -70,8 +70,8 @@ class BotChatSession {
     }
 
     checkNachoOrFer(userName){
-        if (((!this.listaSesiones[this.idSession]["activos"].includes("feerbau")) && (userName == "nachoborrelli")) ||
-            ((!this.listaSesiones[this.idSession]["activos"].includes("nachoborrelli")) && (userName == "feerbau"))){
+        if (((this.listaSesiones[this.idSession]["activos"].includes("feerbau")) && (userName == "nachoborrelli")) ||
+            ((this.listaSesiones[this.idSession]["activos"].includes("nachoborrelli")) && (userName == "feerbau"))){
                 this.nachoWasInTheList= true
                 this.removeUser("nachoborrelli")
                 return "Notificación: a pedido de Nacho, si Fermin juega, él automaticamente cede su lugar... "
