@@ -128,7 +128,7 @@ class BotChatSession {
     addNachoByFer(userName){
         if ((userName == "feerbau")&&(this.nachoWasInTheList)){
             this.addUser("nachoborrelli")
-            return `Se fue fer? uh, entonces si entras @${nachoborrelli} !`
+            return `Se fue fer? uh, entonces si entras @nachoborrelli !`
         }
     }
 
