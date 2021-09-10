@@ -128,6 +128,7 @@ class BotChatSession {
     addNachoByFer(userName){
         if ((userName == "feerbau")&&(this.nachoWasInTheList)){
             this.addUser("nachoborrelli")
+            return "Se fue fer? uh, entonces si entras Nacho!"
         }
     }
 
@@ -139,7 +140,7 @@ class BotChatSession {
         if (index > -1) {
             // checks user existence in active list, then removes him.
             this.listaSesiones[this.idSession]["activos"].splice(index, 1);
-            let msgNF= this.addNachoByFer(userName)
+            let msgNF = this.addNachoByFer(userName)
             if (this.listaSesiones[this.idSession]["suplentes"].length > 0){
                 // Add the first substitute to the active players list and notify him
                 var sustitute = this._getFirstSustitute(this.idSession)
@@ -147,7 +148,7 @@ class BotChatSession {
                 return `Bue que gil, safas porque hay suplente nomás. @${sustitute} mira que entraste en la lista...`
             }
             else{
-                return msgNF? "Se fue fer? uh, entonces si entras Nacho!": "Sos tremendo gil, chau."
+                return msgNF? msgNF: "Sos tremendo gil, chau."
             }
             
         }
